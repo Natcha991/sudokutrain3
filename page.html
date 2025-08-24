@@ -27,10 +27,9 @@
     const buttonsContainer = document.getElementById("buttons");
     let row = [];
 
-    // ฟังก์ชันสุ่มแถว
+    // สุ่มแถว
     function generateRow() {
-      let shuffled = letters.slice().sort(() => Math.random()-0.5);
-      // ทำให้บางช่องว่าง (40%)
+      let shuffled = letters.slice().sort(() => Math.random() - 0.5);
       row = shuffled.map(ch => Math.random() < 0.4 ? "" : ch);
       renderRow();
     }
@@ -46,27 +45,21 @@
       });
     }
 
-    // ตรวจว่าครบ A–I แล้วหรือยัง
+    // ตรวจว่าครบ A–I หรือยัง
     function isComplete() {
-      return row.every(ch => ch !== "") && 
-             letters.every(l => row.includes(l));
+      return row.every(ch => ch !== "") && letters.every(l => row.includes(l));
     }
 
-    // เติมตัวอักษร
+    // ใส่ตัวอักษรเมื่อกดปุ่ม
     function fillLetter(letter) {
-      // ถ้ามีซ้ำ → สุ่มโจทย์ใหม่
       if (row.includes(letter)) {
         generateRow();
         return;
       }
-
-      // ใส่ในช่องว่างแรก
       for (let i = 0; i < row.length; i++) {
         if (row[i] === "") {
           row[i] = letter;
           renderRow();
-
-          // ถ้าครบ A–I → สุ่มโจทย์ใหม่
           if (isComplete()) {
             setTimeout(() => generateRow(), 500);
           }
