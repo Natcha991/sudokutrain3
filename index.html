@@ -27,14 +27,12 @@
     const buttonsContainer = document.getElementById("buttons");
     let row = [];
 
-    // สุ่มแถว
     function generateRow() {
       let shuffled = letters.slice().sort(() => Math.random() - 0.5);
       row = shuffled.map(ch => Math.random() < 0.4 ? "" : ch);
       renderRow();
     }
 
-    // แสดงผล
     function renderRow() {
       rowContainer.innerHTML = "";
       row.forEach(ch => {
@@ -45,12 +43,10 @@
       });
     }
 
-    // ตรวจว่าครบ A–I หรือยัง
     function isComplete() {
       return row.every(ch => ch !== "") && letters.every(l => row.includes(l));
     }
 
-    // ใส่ตัวอักษรเมื่อกดปุ่ม
     function fillLetter(letter) {
       if (row.includes(letter)) {
         generateRow();
@@ -60,15 +56,12 @@
         if (row[i] === "") {
           row[i] = letter;
           renderRow();
-          if (isComplete()) {
-            setTimeout(() => generateRow(), 500);
-          }
+          if (isComplete()) setTimeout(() => generateRow(), 500);
           break;
         }
       }
     }
 
-    // สร้างปุ่ม A–I
     letters.forEach(l => {
       let btn = document.createElement("button");
       btn.textContent = l;
